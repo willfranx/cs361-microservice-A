@@ -12,8 +12,9 @@ socket.bind("tcp://*:5555")
 while True:
     # Receive a message from the client message = socket.recv_string()
     # Decode the message from JSON to a Python dictionary
+    message = socket.recv_string()  # Define the variable "message" by receiving a string from the socket
     measurements = json.loads(message)
-    
+
     # Open a new text file in write mode
     with open('recipe.txt', 'w') as f:
         # Iterate over the dictionary items
@@ -22,6 +23,7 @@ while True:
             f.write(f"{ingredient}: {measurement}\n")
 
     # Open the file in read mode, read its contents into a string
-    with open('recipe.txt', 'rb') as f: contents = f.read()
+    with open('recipe.txt', 'rb') as f:
+        contents = f.read()
     # Send the bytes back to the client
     socket.send(contents)
