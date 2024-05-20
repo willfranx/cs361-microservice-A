@@ -1,4 +1,33 @@
 @startuml
-ConversionMicroserviceClient -> ConversionMicroservice: Send measurements/Request Conversion
-ConversionMicroservice --> ConversionMicroserviceClient: Send Converted Measurements
+ConversionMicroservice -> ConversionMicroservice: socket.bind("tcp://localhost:5555")
+note right
+  Bind to the socket
+end note
+ConversionMicroserviceClient -> ConversionMicroserviceClient: socket.connect("tcp://localhost:5555")
+note left
+  Connect to the socket
+end note
+ConversionMicroserviceClient -> ConversionMicroservice: socket.send_string(message)
+note left
+  Send measurements/Request conversion
+end note
+loop endless
+participant ConversionMicroservice
+    ConversionMicroservice -> ConversionMicroservice: socket.recv_string()
+    note right
+        Await/Receive Conversion Request
+    end note
+    ConversionMicroservice -> ConversionMicroservice: convert_measurements(message)
+    note right
+        Convert the measurements
+    end note
+    ConversionMicroservice --> ConversionMicroserviceClient: socket.send_string(response)
+    note right
+        Send Converted Measurements
+    end note
+end
+ConversionMicroserviceClient --> ConversionMicroserviceClient: socket.recv_string()
+note left
+    Receive Converted Measurements
+end note
 @enduml

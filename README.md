@@ -49,6 +49,18 @@ converted_measurements = json.loads(response)
 print("Received response:", converted_measurements)
 ```
 
+In this example, the received response is simply printed, but the response could also be placed into a .txt file by the client as shown in the following code:
+
+```
+# Convert the response back to a dictionary
+response_dict = json.loads(response)
+
+# Write the dictionary to a .txt file
+with open('response.txt', 'w') as f:
+    for key, value in response_dict.items():
+        f.write(f'{key}: {value}\n')
+```
+
 Note that the response from the conversion microservice is a JSON-encoded dictionary of measurements that have been converted from one measurement to another.
 
 ## C. UML sequence diagram showing how requesting and receiving data works. Make it detailed enough that your teammate (and your grader) will understand.
