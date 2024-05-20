@@ -1,0 +1,4 @@
+@startuml
+ConversionMicroserviceClient -> ConversionMicroservice: Send measurements/Request Conversion
+ConversionMicroservice --> ConversionMicroserviceClient: Send Converted Measurements
+@enduml
