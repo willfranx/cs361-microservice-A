@@ -1,4 +1,4 @@
-# CS261 - Microservice A (Conversion Microservice) Communication Contract - William Franklin
+# CS361 - Microservice A (Conversion Microservice) Communication Contract - William Franklin
 
 ## A. Clear instructions for how to programmatically REQUEST data from the microservice you implemented. Include an example call.
 
@@ -53,10 +53,4 @@ Note that the response from the conversion microservice is a JSON-encoded dictio
 
 ## C. UML sequence diagram showing how requesting and receiving data works. Make it detailed enough that your teammate (and your grader) will understand.
 
-@startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: Another authentication Response
-@enduml
+![Conversion Microservice UML Diagram](conversion_microservice.png)
