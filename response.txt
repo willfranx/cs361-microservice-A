@@ -1,0 +1,3 @@
+flour: 7.0548oz
+sugar: 3.5274oz
+butter: 1.7637oz

@@ -25,3 +25,11 @@ socket.send_string(message)
 # Wait for the server's response (if any)
 response = socket.recv_string()
 print("Received response:", response)
+
+# Convert the response back to a dictionary
+response_dict = json.loads(response)
+
+# Write the dictionary to a .txt file
+with open('response.txt', 'w') as f:
+    for key, value in response_dict.items():
+        f.write(f'{key}: {value}\n')
