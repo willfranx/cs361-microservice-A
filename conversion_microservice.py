@@ -1,27 +1,32 @@
 import zmq
 import json
 
-# Initialize a ZeroMQ context
+# Create a ZeroMQ context
 context = zmq.Context()
 
-# Create a REP socket
+# Create a REP (reply) socket
 socket = context.socket(zmq.REP)
 
-# Bind the socket to an address
+# Bind the socket to a TCP address
 socket.bind("tcp://localhost:5555")
 
-# Define a conversion factor from grams to ounces
-grams_to_ounces = 0.035274
-
 while True:
-    # Wait for a message from the client
-    message = socket.recv_string()
-    measurements = json.loads(message)
+    # Wait for a request from the client
+    request = socket.recv_string()
 
-    # Convert the measurements from grams to ounces
-    converted_measurements = {ingredient: str(float(amount[:-1]) * grams_to_ounces) + 'oz'
-                              for ingredient, amount in measurements.items()}
+    # Convert the request to a list of dictionaries
+    measurements = json.loads(request)
 
-    # Send the converted measurements back to the client
-    response = json.dumps(converted_measurements)
+    # Create an empty list to hold the ingredient strings
+    ingredient_strings = []
+
+    for measurement in measurements:
+        for ingredient, amount in measurement.items():
+            # Add the ingredient string to the list
+            ingredient_strings.append(f'{ingredient}: {amount}')
+
+    # Join the ingredient strings into a single string
+    response = '\n'.join(ingredient_strings)
+
+    # Send the response
     socket.send_string(response)
